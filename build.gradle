@@ -1,0 +1,32 @@
+
+plugins {
+    id 'java'
+}
+
+repositories {
+  mavenCentral() 
+}
+
+dependencies {
+    testImplementation 'io.rest-assured:rest-assured:5.3.2' 
+    testImplementation 'org.testng:testng:7.8.0'
+    implementation 'org.uncommons:reportng:1.1.4'
+    implementation 'org.slf4j:slf4j-api:2.0.9' 
+    implementation 'org.slf4j:slf4j-simple:2.0.9'
+    
+}
+
+// test config
+test {
+    reports.html.required = true 
+    reports.junitXml.required = false 
+   
+
+    useTestNG() {
+        outputDirectory = file("$project.buildDir//report_test")
+        useDefaultListeners = true
+        suites 'src/test/resources/testng.xml' 
+    }
+    testLogging.showStandardStreams = true 
+    testLogging.events "passed", "skipped", "failed"
+}
